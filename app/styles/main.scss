@@ -1,0 +1,77 @@
+$icon-font-path: '../fonts/';
+
+$brand-primary: #2fa7ea;
+$body-color: #474751;
+$body-bg: #f5f5f5;
+// bower:scss
+@import 'bower_components/bootstrap/scss/bootstrap.scss';
+// endbower
+body {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.container,
+.row {
+  height: 100%;
+}
+
+.display-none {
+  display: none;
+}
+
+.logo {
+  &--big {
+    max-width: 80px;
+    width: 100%;
+  }
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+.input-group {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px -2px;
+
+  .form-control {
+    border: 0;
+  }
+}
+
+#gem {
+  text-align: center;
+}
+
+.table {
+  @for $i from 2 through 5 {
+    tr {
+      animation: fadeRow 0.5s ease forwards;
+      opacity: 0;
+
+      &:nth-child(#{$i}),
+      &:nth-child(#{$i}) td {
+        animation-delay: ($i - 1) * 0.2s;
+      }
+    }
+  }
+
+  td {
+    border-top: none;
+  }
+}
+
+@keyframes fadeRow {
+  0% {
+    border-top: 1px solid #ffffff;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    border-top: 1px solid #eeeeee;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

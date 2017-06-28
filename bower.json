@@ -1,0 +1,22 @@
+{
+  "name": "gems",
+  "private": true,
+  "dependencies": {
+    "modernizr": "~2.8.1",
+    "axios": "^0.16.2",
+    "bootstrap": "v4.0.0-alpha.6"
+  },
+  "overrides": {
+    "bootstrap-sass": {
+      "main": [
+        "assets/stylesheets/_bootstrap.scss",
+        "assets/fonts/bootstrap/*",
+        "assets/javascripts/bootstrap.js"
+      ]
+    }
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2"
+  }
+}
