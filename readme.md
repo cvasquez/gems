@@ -1,3 +1,7 @@
+<center>
+  <img src="http://i.imgur.com/v7hTAGE.png" alt="Gems logo" width="100" />
+</center>
+
 # Gems
 
 ## Installation
