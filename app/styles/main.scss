@@ -75,3 +75,43 @@ h1 {
     transform: translateY(0);
   }
 }
+
+
+// Make an element float up and down.
+.anim-hover {
+  animation: hover 1s ease-in-out infinite;
+  animation-direction: alternate;
+}
+
+@keyframes hover {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+
+// Add a wavy color gradient to text.
+.anim-magical {
+  animation: magical 2s ease-in-out infinite;
+  animation-direction: alternate;
+  background: -webkit-linear-gradient(45deg, $body-color 10%, #57b7f4 49%, #57b7f4 51%, $body-color 90%);
+  -webkit-background-clip: text;
+  background-size: 200% 200%;
+  background-position: 100% 0%;
+  color: $body-color;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes magical {
+  0% {
+    background-position: 100% 0%;
+  }
+
+  100% {
+    background-position: 0% 100%;
+  }
+}

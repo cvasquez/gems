@@ -20,6 +20,7 @@ function getRSS(){
       { opacity: 1 },
       { queue: false, duariont: 250 }
     );
+    $('#logo').addClass('anim-hover');
   }
   url = $('#url').val();
   axi(url);
@@ -36,6 +37,7 @@ function axi(url){
     setTimeout(function(){
       $('#step1').fadeOut(200, function(){
         $('#loader').hide();
+        $('#logo').addClass('anim-hover');
         // episode.item.title.substring(0,45) + (episode.item.title.length > 45 ? '...' : '')
         var jsonresp = $.parseJSON(response.request.response),
         category = jsonresp.category,
