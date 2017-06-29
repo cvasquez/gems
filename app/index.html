@@ -31,9 +31,7 @@
     <div class="row align-items-center" id="step1">
       <div class="col-md-4 offset-md-4 text-center pt-1 pb-5">
         <img id="logo" src="images/gem-orange.png" class="logo--big" />
-        <div id="loader" class="display-none text-center mt-2">
-          Making something <span class="anim-magical">magical</span>.
-        </div>
+        <div id="loader" class="display-none text-center mt-2"></div>
         <h1>gems</h1>
         <p class="text-muted">Easy, eloquent power-ups for email.</p>
 
@@ -50,18 +48,14 @@
       </div>
     </div>
 
-    <div class="row" id="step2">
+    <div class="row pt-4 display-none" id="step2">
       <div class="col-lg-8 offset-lg-2 pt-1 pb-5">
         <!-- gem -->
         <style>
-        // email css
-        a.gem {
-          display: inline-block;
-        }
         .gem {
           box-sizing: border-box;
           clear: both;
-          display: block;
+          display: inline-block;
           font-size: 16px;
           font-family: helvetica, arial, sans-serif;
           line-height: 1;
@@ -110,7 +104,9 @@
         }
         </style>
         <div id="gem"></div>
-        <table id="episodes" class="table"></table>
+        <table class="table table-hover">
+          <tbody id="episodes"></tbody>
+        </table>
       </div>
     </div>
   </div>

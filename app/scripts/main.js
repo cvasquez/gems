@@ -9,13 +9,14 @@ http://powertimepodcast.com
 
 // axi(rss);
 var url,
-episodes = { items: [] },
-timeout;
+    episodes = { items: [] },
+    timeout,
+    loadingMsg = '<span class="anim-magical">Making something magical.</span>',
+    noPodcastMsg = 'Umm... that doesn\'t seem like a podcast rss link.';
 
 function getRSS(){
-  if($('#loader').is(':visible')) {
-    $('#loader').slideUp(250);
-  } else {
+  $('#loader').html(loadingMsg);
+  if($('#loader').is(':hidden')) {
     $('#loader').css('opacity', 0).slideDown(250).animate(
       { opacity: 1 },
       { queue: false, duariont: 250 }
@@ -34,72 +35,66 @@ function axi(url){
 
   axios.get('https://crossorigin.me/http://45.63.111.29?awq=' + url)
   .then(function(response){
-    setTimeout(function(){
-      $('#step1').fadeOut(200, function(){
-        $('#loader').hide();
-        $('#logo').addClass('anim-hover');
-        // episode.item.title.substring(0,45) + (episode.item.title.length > 45 ? '...' : '')
-        var jsonresp = $.parseJSON(response.request.response),
-        category = jsonresp.category,
-        type = jsonresp.type,
-        title = jsonresp.title,
-        titleTrunc = title.substring(0, 55) + (title.length > 55 ? '...' : ''),
-        image = jsonresp.image,
-        link = (jsonresp.link || url),
-        author = jsonresp.author,
-        summary = jsonresp.summary;
+    var jsonresp = $.parseJSON(response.request.response),
+    category = jsonresp.category,
+    type = jsonresp.type,
+    title = jsonresp.title,
+    titleTrunc = title.substring(0, 55) + (title.length > 55 ? '...' : ''),
+    image = jsonresp.image,
+    link = (jsonresp.link || url),
+    author = jsonresp.author,
+    summary = jsonresp.summary;
 
-        if(type === 'podcast') {
-          console.log('Podcast!');
-        } else {
-          console.log('Not a podcast.');
-        }
+    if(type === 'podcast') {
+      setTimeout(function(){
+        $('#step1').fadeOut(200, function(){
+          $('#loader').hide();
+          $('#logo').removeClass('anim-hover');
+          $('#step2').show();
 
-        // $('#gem').html(`
-        //   <div class="podcast">
-        //     <img class="podcast__image" src="${image}" alt="${title}" style="max-width: 200px; height: auto;" />
-        //     <div class="podcast__title"><a href="${link}"> ${title}</a></div>
-        //     <div class="podcast__author">By ${author}</div>
-        //     <div class="podcast__summary">${summary}</div>
-        //   </div>
-        // `);
+          $.each(jsonresp.items, function(i, episode){
+            var epTitle = episode.item.title,
+            epTitleTrunc = epTitle.substring(0,40) + (epTitle.length > 40 ? '...' : ''),
+            epLink = episode.item.link,
+            epImage = (episode.item.image || image),
+            epPubdate = episode.item.pubDate,
+            epDuration = (episode.item.duration.length < 6 ? '00:' + episode.item.duration : episode.item.duration),
+            epDescription = episode.item.description;
 
-        $.each(jsonresp.items, function(i, episode){
-          var epTitle = episode.item.title,
-          epTitleTrunc = epTitle.substring(0,40) + (epTitle.length > 40 ? '...' : ''),
-          epLink = episode.item.link,
-          epImage = (episode.item.image || image),
-          epPubdate = episode.item.pubDate,
-          epDuration = (episode.item.duration.length < 6 ? '00:' + episode.item.duration : episode.item.duration),
-          epDescription = episode.item.description;
+            episodes.items.push({
+              item: {
+                titleTrunc: titleTrunc,
+                author: author,
+                epTitleTrunc: epTitleTrunc,
+                epLink: epLink,
+                epImage: epImage,
+                epPubdate: epPubdate,
+                epDuration: epDuration,
+                epDescription: epDescription
+              }
+            });
 
-          episodes.items.push({
-            item: {
-              titleTrunc: titleTrunc,
-              author: author,
-              epTitleTrunc: epTitleTrunc,
-              epLink: epLink,
-              epImage: epImage,
-              epPubdate: epPubdate,
-              epDuration: epDuration,
-              epDescription: epDescription
-            }
-          });
+            $('#episodes').append(`
+              <tr onClick="buildEpisode(${i})">
+              <td>${epTitle}</td>
+              <td>${epPubdate}</td>
+              </tr>
+              `);
 
-          $('#episodes').append(`
-            <tr onClick="buildEpisode(${i})">
-            <td>${epTitle}</td>
-            <td>${epPubdate}</td>
-            </tr>
-            `);
+              // Show the last 5 podcasts
+              return i<4;
+            });
 
-            // Show the last 5 podcasts
-            return i<4;
-          });
-
-        buildEpisode(0);
-      });
-    }, 1000);
+          // Build episode for most recent item in the feed.
+          buildEpisode(0);
+        });
+      }, 1000);
+    }
+    // error if not a podcast
+    else {
+      $('#logo').removeClass('anim-hover');
+      $('#loader').html(noPodcastMsg);
+    }
     }).catch(function(error){
       console.log(error);
     });
@@ -107,6 +102,10 @@ function axi(url){
 
 
   function buildEpisode(num){
+    // Add selected state to first episode table row
+    $('#episodes tr').removeClass('table-info');
+    $('#episodes tr:nth-child(' + (num+1) + ')').addClass('table-info');
+
     var episode = episodes.items[num].item;
 
     var tmpltCtrl = `

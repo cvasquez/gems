@@ -48,6 +48,7 @@ h1 {
   @for $i from 2 through 5 {
     tr {
       animation: fadeRow 0.5s ease forwards;
+      cursor: pointer;
       opacity: 0;
 
       &:nth-child(#{$i}),
@@ -96,9 +97,9 @@ h1 {
 
 // Add a wavy color gradient to text.
 .anim-magical {
-  animation: magical 2s ease-in-out infinite;
+  animation: magical 1s ease-in-out infinite;
   animation-direction: alternate;
-  background: -webkit-linear-gradient(45deg, $body-color 10%, #57b7f4 49%, #57b7f4 51%, $body-color 90%);
+  background: -webkit-linear-gradient(45deg, $body-color 20%, #f47f57 50%, $body-color 80%);
   -webkit-background-clip: text;
   background-size: 200% 200%;
   background-position: 100% 0%;
