@@ -14,25 +14,26 @@ var url,
     loadingMsg = '<span class="anim-magical">Making something magical.</span>',
     noPodcastMsg = 'Umm... that doesn\'t seem like a podcast rss link.';
 
-function getRSS(){
+function getRSS(btn){
   $('#loader').html(loadingMsg);
-  if($('#loader').is(':hidden')) {
-    $('#loader').css('opacity', 0).slideDown(250).animate(
-      { opacity: 1 },
-      { queue: false, duariont: 250 }
-    );
-    $('#logo').addClass('anim-hover');
-  }
-  url = $('#url').val();
-  axi(url);
-}
-
-function axi(url){
   // Reset UI
   $('#gem').empty();
   $('#episodes').empty();
   episodes = { items: [] };
 
+  if($('#loader').is(':hidden')) {
+    $('#loader').css('opacity', 0).slideDown(250).animate(
+      { opacity: 1 },
+      { queue: false, duration: 250 }
+    );
+    $('#gem').html('<h2 class="text-center">' + loadingMsg + '</h2>');
+    $('#logo').addClass('anim-hover');
+  }
+  url = $(btn).parents('.input-group').find('input[type="url"]').val();
+  axi(url);
+}
+
+function axi(url){
   axios.get('https://crossorigin.me/http://45.63.111.29?awq=' + url)
   .then(function(response){
     var jsonresp = $.parseJSON(response.request.response),
@@ -51,6 +52,7 @@ function axi(url){
           $('#loader').hide();
           $('#logo').removeClass('anim-hover');
           $('#step2').show();
+          fadeInFlex('nav');
 
           $.each(jsonresp.items, function(i, episode){
             var epTitle = episode.item.title,
@@ -103,7 +105,7 @@ function axi(url){
 
   function buildEpisode(num){
     // Add selected state to first episode table row
-    $('#episodes tr').removeClass('table-info');
+    $('#episode tr').removeClass('table-info');
     $('#episodes tr:nth-child(' + (num+1) + ')').addClass('table-info');
 
     var episode = episodes.items[num].item;
@@ -173,3 +175,18 @@ function axi(url){
 
     $('#gem').html(tmpltHtml);
   }
+
+
+// Fade-in for flexbox elements
+function fadeInFlex(elem){
+  if($(elem).css('display') === "none"){
+    $(elem).css({
+      display: 'flex',
+      opacity: 0
+    }).animate(
+      { opacity: 1 },
+      { queue: false, duration: 250 }
+    );
+    return;
+  };
+}
