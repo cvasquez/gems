@@ -105,7 +105,7 @@ function axi(url){
 
   function buildEpisode(num){
     // Add selected state to first episode table row
-    $('#episode tr').removeClass('table-info');
+    $('#episodes tr').removeClass('table-info');
     $('#episodes tr:nth-child(' + (num+1) + ')').addClass('table-info');
 
     var episode = episodes.items[num].item;
@@ -179,7 +179,7 @@ function axi(url){
 
 // Fade-in for flexbox elements
 function fadeInFlex(elem){
-  if($(elem).css('display') === "none"){
+  if($(elem).css('display') === 'none'){
     $(elem).css({
       display: 'flex',
       opacity: 0
