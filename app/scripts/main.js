@@ -91,7 +91,7 @@ function axi(url){
           buildEpisode(0);
           setTimeout(function(){
             $('#gemHtml').slideDown(300);
-          }, 500);
+          }, 400);
         });
       }, 1000);
     }
@@ -121,7 +121,7 @@ function axi(url){
 
     var tmpltHtml = `
       <center>
-      <a href="${episode.epLink}" class="gem" style="box-sizing: border-box; color: #698596; clear: both; display: inline-block; font-size: 16px; font-family: helvetica, arial, sans-serif; line-height: 1; text-decoration: none;">
+      <a href="${episode.epLink}" target="_blank" class="gem" style="box-sizing: border-box; color: #698596; clear: both; display: inline-block; font-size: 16px; font-family: helvetica, arial, sans-serif; line-height: 1; text-decoration: none;">
         <!--[if !mso]><!-->
         <table bgcolor="#EEF0F2" border="0" cellspacing="0" cellpadding="0" width="100%" style="max-width: 540px;">
           <!--<![endif]--><!--[if (gte mso 9)|(IE)]><table cellspacing="0" cellpadding="0" width="540" style="font-family: Helvetica, Arial, sans-serif; "><![endif]-->
@@ -132,13 +132,13 @@ function axi(url){
                   <tbody>
                     <tr>
                       <td class="gem__image" style="vertical-align: text-top; display: block; max-height: 100px; height: auto; width: 100px;" valign="text-top">
-                        <img src="${episode.epImage}" alt="${episode.epTitle}" height="100" width="100" style="max-width: 100%; height: auto;">
+                        <img src="${episode.epImage}" alt="Episode Thumbnail" height="100" width="100" style="max-width: 100%; height: auto;">
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </td>
-              <td width="81%" style="vertical-align: top;" valign="top">
+              <td style="vertical-align: top;" valign="top">
                 <table cellspacing="0" cellpadding="0" width="100%">
                   <tbody>
                     <tr>

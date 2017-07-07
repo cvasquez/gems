@@ -66,29 +66,34 @@ textarea {
   width: 100%;
 }
 
+.gem,
+textarea,
+.table {
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+}
+
 .gem {
-  animation: slideGem 0.5s ease forwards;
+  animation: slideGem 0.35s ease-out forwards;
   opacity: 0;
   transform: translateY(40px);
 }
 
 .table {
-  @for $i from 2 through 5 {
+  @for $i from 1 through 5 {
     tr {
-      animation: fadeRow 0.5s ease forwards;
+      animation: fadeRow 0.3s ease forwards;
       cursor: pointer;
       opacity: 0;
       transition-duration: 0.25s;
 
       &:nth-child(#{$i}),
       &:nth-child(#{$i}) td {
-        animation-delay: ($i + 1.5) * 0.2s;
+        animation-delay: 0.6s + ($i * 0.1);
       }
     }
-  }
-
-  tr:first-child {
-    animation-delay: 1s;
   }
 
   td {
@@ -99,7 +104,7 @@ textarea {
 @keyframes slideGem {
   0% {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(20px);
   }
 
   75% {
