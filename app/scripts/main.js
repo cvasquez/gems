@@ -15,6 +15,7 @@ var url,
     noPodcastMsg = 'Umm... that doesn\'t seem like a podcast rss link.';
 
 function getRSS(btn){
+  $('#gemHtml').hide();
   $('#loader').html(loadingMsg);
   // Reset UI
   $('#gem').empty();
@@ -79,7 +80,6 @@ function axi(url){
             $('#episodes').append(`
               <tr onClick="buildEpisode(${i})">
               <td>${epTitle}</td>
-              <td>${epPubdate}</td>
               </tr>
               `);
 
@@ -89,6 +89,9 @@ function axi(url){
 
           // Build episode for most recent item in the feed.
           buildEpisode(0);
+          setTimeout(function(){
+            $('#gemHtml').slideDown(300);
+          }, 500);
         });
       }, 1000);
     }
@@ -117,63 +120,78 @@ function axi(url){
     `;
 
     var tmpltHtml = `
-    <a href="${episode.epLink}" class="gem">
-    <!--[if !mso]><!-->
-    <table bgcolor="#EEF0F2" border="0" cellspacing="0" cellpadding="0" width="100%" style="max-width: 540px; ">
-    <!--<![endif]-->
-    <!--[if (gte mso 9)|(IE)]><table cellspacing="0" cellpadding="0" width="540" style="font-family: Helvetica, Arial, sans-serif; "><![endif]-->
-    <tr>
-    <td width="19%" style="vertical-align: top">
-    <table border="0" cellspacing="0" cellpadding="0" width="100%">
-    <tr>
-    <td class="gem__image" style="vertical-align: text-top">
-    <img src="${episode.epImage}" alt="${episode.epTitle}" height="100" width="100" style="max-width: 100%; height: auto;">
-    </td>
-    </tr>
-    </table>
-    </td>
-    <td width="81%" style="vertical-align: top;">
-    <table cellspacing="0" cellpadding="0" width="100%">
-    <tr>
-    <td class="gem__meta">
-    <table cellspacing="0" cellpadding="0" width="100%">
-    <tr>
-    <td class="gem__title">
-    ${episode.epTitleTrunc}
-    </td>
-    </tr>
-    <tr>
-    <td class="gem__author">${episode.titleTrunc}</td>
-    </tr>
-    <tr>
-    <td class="gem__playbar">
-    <table cellspacing="0" cellpadding="0" width="100%">
-    <tr>
-    <td class="gem__playBtn" width="6%">
-    ►
-    </td>
-    <td class="gem__timeline" style="vertical-align:top;" width="69%">
-    <div></div>
-    </td>
-    <td class="gem__duration" width="24%">
-    ${episode.epDuration}
-    </td>
-    </tr>
-    </table>
-    </td>
-    </tr>
-    </table>
-    </td>
-    </tr>
-    </table>
-    </td>
-    </tr>
-    </table>
-    </a>
-    ${tmpltCtrl}
+      <center>
+      <a href="${episode.epLink}" class="gem" style="box-sizing: border-box; color: #698596; clear: both; display: inline-block; font-size: 16px; font-family: helvetica, arial, sans-serif; line-height: 1; text-decoration: none;">
+        <!--[if !mso]><!-->
+        <table bgcolor="#EEF0F2" border="0" cellspacing="0" cellpadding="0" width="100%" style="max-width: 540px;">
+          <!--<![endif]--><!--[if (gte mso 9)|(IE)]><table cellspacing="0" cellpadding="0" width="540" style="font-family: Helvetica, Arial, sans-serif; "><![endif]-->
+          <tbody>
+            <tr>
+              <td width="19%" style="vertical-align: top;" valign="top">
+                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="gem__image" style="vertical-align: text-top; display: block; max-height: 100px; height: auto; width: 100px;" valign="text-top">
+                        <img src="${episode.epImage}" alt="${episode.epTitle}" height="100" width="100" style="max-width: 100%; height: auto;">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td width="81%" style="vertical-align: top;" valign="top">
+                <table cellspacing="0" cellpadding="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="gem__meta" style="box-sizing: border-box; color: #546A78; min-height: 100px; padding: 12px 15px;">
+                        <table cellspacing="0" cellpadding="0" width="100%">
+                          <tbody>
+                            <tr>
+                              <td class="gem__title" style="font-family: helvetica, arial, sans-serif; font-weight: 700; text-align: left;">
+                                ${episode.epTitleTrunc}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="gem__author" style="color: #698596; font-size: 14px; font-family: helvetica, arial, sans-serif; line-height: 1.6; text-align: left;">
+                                ${episode.titleTrunc}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="gem__playbar" style="padding-top: 8px;">
+                                <table cellspacing="0" cellpadding="0" width="100%">
+                                  <tbody>
+                                    <tr>
+                                      <td class="gem__playBtn" width="6%" style="color: #698596; font-size: 16px; font-family: helvetica, arial, sans-serif; line-height: 1.6; padding-right: 5px; text-align: right;" align="right">
+                                        &#9658;
+                                      </td>
+                                      <td class="gem__timeline" style="vertical-align: top;" width="69%" valign="top">
+                                        <div style="border-bottom-style: solid; border-bottom-color: #698596; border-bottom-width: 2px; height: 13px; width: 100%;"></div>
+                                      </td>
+                                      <td class="gem__duration" width="24%" style="color: #698596; font-size: 14px; font-family: helvetica, arial, sans-serif; line-height: 1.6; font-weight: 700; padding-left: 5px;">
+                                        ${episode.epDuration}
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </a>
+      </center>
     `;
 
     $('#gem').html(tmpltHtml);
+
+    var gemHTML = $('#gem').html();
+    $('#gemHtml').val($.trim(gemHTML));
   }
 
 

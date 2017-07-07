@@ -1,19 +1,29 @@
 $icon-font-path: '../fonts/';
 
-$brand-primary: #2fa7ea;
-$body-color: #474751;
-$body-bg: #f5f5f5;
+$white: rgb(255, 255, 255);
+$blue: rgb(47, 167, 234);
+$orange: rgb(244, 127, 87);
+
+$gray-10: rgb(71, 71, 81);
+$gray-70: rgb(200, 200, 200);
+$gray-90: rgb(245, 245, 245);
+
+$brand-primary: $blue;
+$brand-secondary: $orange;
+$body-color: $gray-10;
+$body-bg: $gray-90;
 // bower:scss
 @import 'bower_components/bootstrap/scss/bootstrap.scss';
 // endbower
+@import 'bower_components/bootstrap/scss/bootstrap-grid.scss';
+
 body {
   height: 100%;
   position: absolute;
   width: 100%;
 }
 
-.container,
-.row {
+.container {
   height: 100%;
 }
 
@@ -40,8 +50,26 @@ h1 {
   }
 }
 
-#gem {
-  text-align: center;
+.row {
+  height: 100%;
+}
+
+textarea {
+  border: 1px solid $gray-70;
+  border-radius: 3px;
+  display: none;
+  height: 8rem;
+  margin: 1rem 0;
+  max-width: 100%;
+  padding: 0.5rem 1rem;
+  user-select: all;
+  width: 100%;
+}
+
+.gem {
+  animation: slideGem 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(40px);
 }
 
 .table {
@@ -50,12 +78,17 @@ h1 {
       animation: fadeRow 0.5s ease forwards;
       cursor: pointer;
       opacity: 0;
+      transition-duration: 0.25s;
 
       &:nth-child(#{$i}),
       &:nth-child(#{$i}) td {
-        animation-delay: ($i - 1) * 0.2s;
+        animation-delay: ($i + 1.5) * 0.2s;
       }
     }
+  }
+
+  tr:first-child {
+    animation-delay: 1s;
   }
 
   td {
@@ -63,15 +96,31 @@ h1 {
   }
 }
 
+@keyframes slideGem {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  75% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes fadeRow {
   0% {
-    border-top: 1px solid #ffffff;
+    border-top: 1px solid $white;
     opacity: 0;
     transform: translateY(20px);
   }
 
   100% {
-    border-top: 1px solid #eeeeee;
+    border-top: 1px solid $body-bg;
     opacity: 1;
     transform: translateY(0);
   }
@@ -99,7 +148,7 @@ h1 {
 .anim-magical {
   animation: magical 1s ease-in-out infinite;
   animation-direction: alternate;
-  background: -webkit-linear-gradient(45deg, $body-color 20%, #f47f57 50%, $body-color 80%);
+  background: -webkit-linear-gradient(45deg, $body-color 20%, $brand-secondary 50%, $body-color 80%);
   -webkit-background-clip: text;
   background-size: 200% 200%;
   background-position: 100% 0%;

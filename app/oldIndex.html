@@ -55,7 +55,7 @@
         <p class="text-muted">Easy, eloquent power-ups for email.</p>
 
         <div class="input-group my-4">
-          <input type="url" required class="form-control" placeholder="Paste podcast rss url...">
+          <input type="url" class="form-control" placeholder="Paste podcast rss url...">
           <span class="input-group-btn">
             <button class="btn btn-primary" onClick="getRSS(this);" type="button">Activate!</button>
           </span>
@@ -69,8 +69,60 @@
 
     <div class="row pt-4 display-none" id="step2">
       <div class="col-lg-8 offset-lg-2 pt-1">
-        <div id="gem" class="gem"></div>
-        <textarea id="gemHtml" readonly></textarea>
+        <!-- gem -->
+        <style>
+        .gem {
+          box-sizing: border-box;
+          clear: both;
+          display: inline-block;
+          font-size: 16px;
+          font-family: helvetica, arial, sans-serif;
+          line-height: 1;
+          text-decoration: none;
+        }
+        .gem table {
+          background-color: #EEF0F2;
+          text-align: left;
+        }
+        .gem__meta {
+          box-sizing: border-box;
+          color: #546A78;
+          padding: 12px 15px;
+          min-height: 100px;
+        }
+        .gem__image {
+          display: block;
+          max-height: 100px;
+          height: auto;
+          width: 100px;
+        }
+        .gem__title {
+          font-weight: 700;
+        }
+        .gem__author, .gem__duration, .gem__playBtn {
+          color: #698596;
+          font-size: 14px;
+          line-height: 1.6;
+        }
+        .gem__playbar {
+          padding-top: 8px;
+        }
+        .gem__playbar .gem__playBtn {
+          font-size: 16px;
+          padding-right: 5px;
+          text-align: right;
+        }
+        .gem__playbar .gem__timeline div {
+          border-bottom: 2px solid #698596;
+          height: 13px;
+          width: 100%;
+        }
+        .gem__playbar .gem__duration {
+          font-weight: 700;
+          padding-left: 5px;
+        }
+        </style>
+        <div id="gem"></div>
         <table class="table table-hover">
           <tbody id="episodes"></tbody>
         </table>
